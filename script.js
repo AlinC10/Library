@@ -46,17 +46,14 @@ Book.prototype.changeReadSatus = function () {
 };
 
 function changeButtonStatus(button, read) {
-    if(read) {
+    if (read) {
         button.textContent = "Yes";
         button.classList.add("yes");
-        if(button.classList.contains("no"))
-            button.classList.remove("no");
-    }
-    else {
+        if (button.classList.contains("no")) button.classList.remove("no");
+    } else {
         button.textContent = "No";
         button.classList.add("no");
-        if(button.classList.contains("yes"))
-            button.classList.remove("yes");
+        if (button.classList.contains("yes")) button.classList.remove("yes");
     }
 }
 
@@ -113,5 +110,6 @@ function addBookToLibrary(title, author, pages, read) {
 
 function removeBook(container, title) {
     myLibrary = myLibrary.filter((book) => book.title !== title);
+    container.querySelector(button).removeEventListener();
     container.remove();
 }
