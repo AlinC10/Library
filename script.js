@@ -24,7 +24,7 @@ form.addEventListener("submit", (e) => {
         form.title.value,
         form.author.value,
         form.pages.value,
-        form.read.checked
+        form.read.checked,
     );
 
     form.reset();
@@ -33,17 +33,19 @@ form.addEventListener("submit", (e) => {
 
 let myLibrary = [];
 
-function Book(title, author, pages, read = false) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-    display = false;
-}
+class Book {
+    constructor(title, author, pages, read = false) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+        this.display = false;
+    }
 
-Book.prototype.changeReadSatus = function () {
-    this.read = this.read ? false : true;
-};
+    changeReadStatus() {
+        this.read = this.read ? false : true;
+    }
+}
 
 function changeButtonStatus(button, read) {
     if (read) {
@@ -71,7 +73,7 @@ function textContainer(container, h3Text, pText, book = null) {
         const button = document.createElement("button");
         changeButtonStatus(button, pText);
         button.addEventListener("click", () => {
-            book.changeReadSatus();
+            book.changeReadStatus();
             changeButtonStatus(button, book.read);
         });
         div.appendChild(button);
@@ -94,7 +96,7 @@ function addBookToLibrary(title, author, pages, read) {
         () => {
             removeBook(container, title);
         },
-        { once: true }
+        { once: true },
     ); // remove event listener after firing once
 
     textContainer(container, "Title: ", title);
