@@ -59,6 +59,11 @@ function changeButtonStatus(button, read) {
     }
 }
 
+function readStatusModifier() {
+    book.changeReadStatus();
+    changeButtonStatus(button, book.read);
+}
+
 function textContainer(container, h3Text, pText, book = null) {
     const h3 = document.createElement("h3");
     h3.textContent = h3Text;
@@ -72,10 +77,7 @@ function textContainer(container, h3Text, pText, book = null) {
     } else {
         const button = document.createElement("button");
         changeButtonStatus(button, pText);
-        button.addEventListener("click", () => {
-            book.changeReadStatus();
-            changeButtonStatus(button, book.read);
-        });
+        button.addEventListener("click", readStatusModifier);
         div.appendChild(button);
     }
     container.appendChild(div);
@@ -112,6 +114,9 @@ function addBookToLibrary(title, author, pages, read) {
 
 function removeBook(container, title) {
     myLibrary = myLibrary.filter((book) => book.title !== title);
-    container.querySelector(button).removeEventListener();
+    container.children[4].children[1].removeEventListener(
+        "click",
+        readStatusModifier,
+    );
     container.remove();
 }
